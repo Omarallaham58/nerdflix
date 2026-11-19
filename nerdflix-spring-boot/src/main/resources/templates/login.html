@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign In - Nerdflix Admin</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .card {
+            background: #181818;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            border: 1px solid #282828;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .logo-icon {
+            color: #e50914;
+            font-size: 28px;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', 'Impact', sans-serif;
+            font-size: 32px;
+            letter-spacing: 4px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .title {
+            margin: 0 0 24px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .alert-error {
+            background: rgba(229,9,20,0.1);
+            border: 1px solid rgba(229,9,20,0.3);
+            color: #ff5c5c;
+        }
+
+        .alert-success {
+            background: rgba(46,204,113,0.1);
+            border: 1px solid rgba(46,204,113,0.3);
+            color: #2ecc71;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #aaa;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        input {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        input:focus {
+            border-color: #e50914;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 38px; /* Position below the label */
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #888;
+            font-size: 18px;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: #e50914;
+        }
+
+        .submit-btn {
+            background: #e50914;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #f6121d;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="logo-wrap">
+            <span class="logo-icon">▶</span>
+            <span class="logo-text">NERDFLIX</span>
+        </div>
+
+        <h2 class="title">Admin Sign In</h2>
+
+        <!-- Error message for invalid credentials -->
+        <div th:if="${param.error != null and param.error[0] != 'accessdenied'}" class="alert alert-error">
+            Invalid username or password.
+        </div>
+
+        <!-- Error message for non‑admin access -->
+        <div th:if="${param.error != null and param.error[0] == 'accessdenied'}" class="alert alert-error">
+            Access denied. You do not have administrator privileges.
+        </div>
+
+        <!-- Logout message -->
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </div>
+
+        <form th:action="@{/login}" method="post" class="form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword()" id="toggleBtn">👁️</button>
+            </div>
+
+            <!-- CSRF token is automatically included -->
+            <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const toggleBtn = document.getElementById('toggleBtn');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleBtn.textContent = '🔒';
+        } else {
+            passwordInput.type = 'password';
+            toggleBtn.textContent = '👁️';
+
+        }
+    }
+</script>
+</body>
+</html>

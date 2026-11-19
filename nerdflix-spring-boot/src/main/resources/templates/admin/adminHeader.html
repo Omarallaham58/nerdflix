@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--
+    Usage in any template:
+        <head>
+            <th:block th:replace="~{fragments/adminHeader :: adminHeaderStyles}"></th:block>
+        </head>
+        <body>
+            <div th:replace="~{fragments/adminHeader :: adminHeader}"></div>
+            ...
+        </body>
+-->
+
+<head th:fragment="adminHeaderStyles">
+    <style>
+        /* ── Global reset & dark base ── */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Header ── */
+        .nf-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            height: 60px;
+            background: #0f0f0f;
+            border-bottom: 1px solid #1f1f1f;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nf-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nf-logo-icon {
+            color: #e50914;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .nf-logo-text {
+            font-family: 'Impact', sans-serif;
+            font-size: 26px;
+            letter-spacing: 4px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .nf-header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nf-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #e50914;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .nf-admin-label {
+            font-size: 13px;
+            color: #aaa;
+            letter-spacing: 0.3px;
+        }
+
+        .nf-admin-badge {
+            display: inline-block;
+            background: rgba(229,9,20,0.15);
+            color: #e50914;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 20px;
+            border: 1px solid rgba(229,9,20,0.3);
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        .nf-logout-btn {
+            background: #e50914;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1.4;
+            transition: background 0.2s;
+        }
+        .nf-logout-btn:hover { background: #f6121d; color: white; text-decoration: none; }
+    </style>
+</head>
+
+<body>
+<header th:fragment="adminHeader" class="nf-header">
+
+    <a href="/admin/videos" class="nf-logo">
+        <span class="nf-logo-icon">▶</span>
+        <span class="nf-logo-text">NERDFLIX</span>
+    </a>
+
+    <div class="nf-header-right">
+        <!--        <div class="nf-avatar">A</div>-->
+        <!--        <span class="nf-admin-label">-->
+        <!--            admin-->
+        <span class="nf-admin-badge">admin</span>
+        <!--        </span>-->
+<!--        <a href="/logout" class="nf-logout-btn">Logout</a>-->
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="nf-logout-btn">Logout</button>
+        </form>
+
+    </div>
+
+</header>
+</body>
+</html>

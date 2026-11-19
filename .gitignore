@@ -1,0 +1,26 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+.dev.vars
+!.dev.vars.example
+application-local.properties
+
+# Build output and dependencies
+target/
+node_modules/
+dist/
+.wrangler/
+
+# Media generated at runtime and recordings
+nerdflix-spring-boot/videos/
+nerdflix-spring-boot/thumbnails/
+*.mkv
+*.mp4
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+HELP.md

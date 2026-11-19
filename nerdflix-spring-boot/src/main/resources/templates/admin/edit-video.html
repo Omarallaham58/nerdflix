@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin | Edit Video</title>
+    <meta charset="UTF-8">
+
+    <th:block th:replace="~{admin/adminHeader :: adminHeaderStyles}"></th:block>
+
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #181818;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #222;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .btn-back {
+            font-size: 13px;
+            color: #e50914;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .btn-back:hover { text-decoration: underline; }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: #bbb;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            background: #222;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 6px;
+            font-size: 14px;
+            font-family: 'Segoe UI', sans-serif;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus { border-color: #e50914; }
+
+        select option { background: #222; color: #fff; }
+
+        textarea { resize: vertical; min-height: 90px; }
+
+        .alert-error { color: #ff5c5c; font-size: 13px; margin-top: 4px; }
+
+        .btn-submit {
+            margin-top: 26px;
+            width: 100%;
+            background: #e50914;
+            border: none;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover { background: #f6121d; }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{admin/adminHeader :: adminHeader}"></div>
+
+<div class="container">
+
+    <div class="page-header">
+        <h2>Edit Video</h2>
+        <a th:href="@{/admin/videos}" class="btn-back">← Back</a>
+    </div>
+
+    <form th:action="@{/admin/videos/update}"
+          th:object="${videoForm}"
+          method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Title</label>
+        <input type="text" th:field="*{title}" placeholder="Enter video title">
+
+        <label>Description</label>
+        <textarea th:field="*{description}" placeholder="Enter video description"></textarea>
+
+        <label>Category</label>
+        <select th:field="*{categoryId}">
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+        </select>
+
+        <button type="submit" class="btn-submit">Save Changes</button>
+
+    </form>
+</div>
+
+</body>
+</html>

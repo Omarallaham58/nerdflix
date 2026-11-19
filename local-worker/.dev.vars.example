@@ -1,0 +1,8 @@
+# Copy to .dev.vars (never commit it). `wrangler dev` loads it automatically.
+
+# Must match WORKER_TOKEN_SECRET in the Spring Boot backend
+WORKER_TOKEN_SECRET=
+
+# Backblaze B2 application key with read access to the bucket
+B2_KEY_ID=
+B2_APP_KEY=

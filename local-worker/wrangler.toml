@@ -1,0 +1,14 @@
+name = "secure-video-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Secrets (WORKER_TOKEN_SECRET, B2_KEY_ID, B2_APP_KEY) are not stored here.
+# Local development: put them in .dev.vars (see .dev.vars.example).
+# Production: wrangler secret put WORKER_TOKEN_SECRET (same for B2_KEY_ID and B2_APP_KEY).
+
+[vars]
+BACKEND_URL = "http://localhost:8080"
+B2_BUCKET = "videos-nerdflix"
+# Optional: adjust cache durations if needed
+PLAYLIST_CACHE_SECONDS = 3600
+SEGMENT_CACHE_SECONDS = 86400
